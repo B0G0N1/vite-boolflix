@@ -1,0 +1,19 @@
+// Importa Bootstrap SCSS
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+// Importa il font da Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+// RESET
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+}
+
+// MAIN
+body {
+    font-family: 'Roboto', Helvetica, sans-serif;
+}
