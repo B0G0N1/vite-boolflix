@@ -7,11 +7,13 @@ export default {
     }
 }
 </script>
+
 <template>
     <MovieCard/>
     <MovieCard/>
     <MovieCard/>
 </template>
+
 <style lang="scss">
     
 </style>

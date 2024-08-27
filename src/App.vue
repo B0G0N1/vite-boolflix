@@ -12,10 +12,12 @@
     }
   }
 </script>
+
 <template>
   <AppHeader />
   <AppMain />
 </template>
+
 <style lang="scss">
   @use './styles/generals.scss'; // Importa gli stili generali dal file generals.scss
 </style>
