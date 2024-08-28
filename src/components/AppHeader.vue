@@ -1,7 +1,19 @@
 <script>
+import { store } from '../store'; // Importa lo store
+import axios from 'axios'; // Importa Axios
+
 export default {
-    
-}
+    data() {
+        return {
+            store // Include lo store nei dati del componente
+        };
+    },
+        methods: {
+      handleSearch() {
+        this.$emit('search');
+      }
+    }
+};
 </script>
 
 <template>
@@ -10,8 +22,8 @@ export default {
             <h1>BOOLFLIX</h1>
         </div>
         <div class="search-bar">
-            <input type="text" placeholder="Inserisci un film" />
-            <button>Cerca</button>
+            <input type="text" placeholder="Inserisci un film" v-model="store.searchFilm" />
+            <button @click="handleSearch">Cerca</button>
         </div>
     </div>
 </template>
