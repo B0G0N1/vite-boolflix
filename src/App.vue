@@ -42,7 +42,11 @@ export default {
                     console.error(error);
                 });
         }
-    }
+  },
+  mounted() {
+        // Esegue searchDatabase all'avvio del componente
+        this.searchDatabase();
+  }
 }
 </script>
 

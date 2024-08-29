@@ -4,7 +4,7 @@ import { reactive } from 'vue';  // Importa il metodo reactive da Vue
 export const store = reactive({
     searchApi: 'https://api.themoviedb.org/3/search',  // Base URL dell'API per cercare i film
     apiKey: '2193eedc3082d0f581dd1cdebb7f8641',  // Chiave API per autenticazione
-    searchFilm: null,  // Titolo del film cercato
+    searchFilm: 'Simpson',  // Titolo del film cercato
     filmList: [],  // Elenco dei film trovati
 
     // Mappatura della lingua (codice ISO 639-1) alla bandiera del rispettivo paese
