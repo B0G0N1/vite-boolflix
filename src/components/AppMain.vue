@@ -23,6 +23,7 @@ export default {
 <template>
     <div class="movie-card-container">
         <div v-for="film in store.filmList" :key="film.id" class="movie-info">
+            <img :src="`https://image.tmdb.org/t/p/w342${film.poster_path}`" alt="Poster of {{ film.title || film.name }}" />
             <h3>{{ film.title || film.name }}</h3>
             <p><strong>Titolo Originale:</strong>{{ film.original_title || film.original_name }}</p>
             <p><strong>Lingua:</strong></p>
