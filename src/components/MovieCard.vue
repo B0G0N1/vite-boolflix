@@ -1,18 +1,61 @@
 <script>
 export default {
-    
+    props: {
+        // Proprietà che contiene i dettagli del film
+        film: {
+            type: Object,
+            required: true
+        },
+        // Codice del paese per la bandiera
+        countryCode: {
+            type: String,
+            required: true
+        }
+    }
 }
 </script>
 
 <template>
     <div class="movie-card">
-        <img src="https://via.placeholder.com/300x300" alt="Movie Image" class="movie-image" />
+        <!-- Immagine del poster del film -->
+        <img
+        :src="film.poster_path ? `https://image.tmdb.org/t/p/w342${film.poster_path}` : 'https://placehold.co/200x300?text=Not+Find'"
+        alt="Poster of {{ film.title || film.name }}"
+        class="movie-image"
+        />
         <div class="movie-details">
-            <h3 class="movie-title">Inception</h3>
-            <p class="movie-rating">Rating: 8.8/10</p>
-            <p class="movie-duration">Duration: 148 min</p>
-            <p class="movie-description">
-                A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.
+            <!-- Titolo del film -->
+            <h3 class="movie-title">{{ film.title || film.name }}</h3>
+            <!-- Titolo originale del film -->
+            <p class="movie-original-title">
+                <strong>Titolo Originale:</strong> 
+                {{ film.original_title || film.original_name }}
+            </p>
+            <!-- Lingua originale del film con la bandiera -->
+            <p class="movie-language">
+                <strong>Lingua:</strong>
+                <img
+                    :src="`https://flagcdn.com/${countryCode}.svg`"
+                    width="30"
+                    :alt="film.original_language"
+                    class="movie-flag"
+                />
+            </p>
+            <!-- Valutazione del film con le stelle -->
+            <p class="movie-rating">
+                <strong>Voto:</strong>
+                <span v-for="star in 5" :key="star">
+                    <i 
+                        v-if="star <= Math.ceil(film.vote_average / 2)" 
+                        class="fa-solid fa-star" 
+                        style="color: #FFD43B;">
+                    </i>
+                    <i 
+                        v-else 
+                        class="fa-regular fa-star" 
+                        style="color: #FFD43B;">
+                    </i>
+                </span>
             </p>
         </div>
     </div>
@@ -42,16 +85,17 @@ export default {
             color: #333;
         }
 
-        .movie-rating,
-        .movie-duration,
-        .movie-description {
+        .movie-original-title,
+        .movie-language,
+        .movie-rating {
             font-size: 0.9em;
             margin-bottom: 5px;
             color: #666;
         }
 
-        .movie-description {
-            margin-top: 10px;
+        .movie-flag {
+            margin-left: 5px;
+            vertical-align: middle;
         }
     }
 }

@@ -4,48 +4,50 @@
   
   import AppHeader from './components/AppHeader.vue'; // Importa il componente AppHeader
   import AppMain from './components/AppMain.vue'; // Importa il componente AppMain
-  
+
 export default {
-        data() {
+    data() {
         return {
-            store // Include lo store nei dati del componente
+            store // Aggiunge lo store ai dati del componente
         };
     },
     components: {
-      AppHeader, // Registra il componente AppHeader
-      AppMain // Registra il componente AppMain
+        AppHeader, // Registra il componente AppHeader
+        AppMain // Registra il componente AppMain
     },
     methods: {
-    searchMovies() {
-        store.filmList = [];
-        const query = encodeURIComponent(store.searchFilm);
-        const apiUrl = `${store.searchMovieApi}?api_key=${store.apiKey}&query=${query}`;
-        const apiUrl2 = `${store.searchShowsApi}?api_key=${store.apiKey}&query=${query}`;
+        searchDatabase() {
+            // Codifica la query per utilizzarla nell'URL
+            const query = encodeURIComponent(store.searchFilm);
+            // Costruisce l'URL per cercare i film
+            const apiUrlMovies = store.searchApi.concat('/movie?api_key=', store.apiKey, '&query=', query);
+            // Costruisce l'URL per cercare le serie TV
+            const apiUrlShows = store.searchApi.concat('/tv?api_key=', store.apiKey, '&query=', query);
 
-        axios.get(apiUrl)
-            .then((result) => {
-                store.filmList = result.data.results; // Aggiorna la lista dei film nello store
-                return axios.get(apiUrl2);
-            })
-            .then((result) => {
-                store.filmList = [...store.filmList, ...result.data.results]; // Unisce i risultati con lo spread operator
-            })
-            .catch((error) => {
-                store.filmList = []; // In caso di errore, imposta una lista vuota
-                console.error(error);
-            });
-
-        console.log(store.filmList);
-        console.log(apiUrl2);
-        console.log(apiUrl);
+            // Esegue la richiesta per i film
+            axios.get(apiUrlMovies)
+                .then((result) => {
+                    // Aggiorna la lista dei film nello store
+                    store.filmList = result.data.results;
+                    // Esegue la richiesta per le serie TV
+                    return axios.get(apiUrlShows);
+                })
+                .then((result) => {
+                    // Aggiunge i risultati delle serie TV alla lista dei film usando concat
+                    store.filmList = store.filmList.concat(result.data.results);
+                })
+                .catch((error) => {
+                    // In caso di errore, svuota la lista dei film
+                    store.filmList = [];
+                    console.error(error);
+                });
+        }
     }
 }
-
-  }
 </script>
 
 <template>
-  <AppHeader @search="searchMovies" />
+  <AppHeader @search="searchDatabase" />
   <AppMain />
 </template>
 
