@@ -13,7 +13,7 @@ export default {
     },
     methods: {
     getCountryCode(language) {
-        return store.languageToCountry[language] || 'un'; // 'un' for unknown/default flag
+        return store.languageToCountry[language] || language; // 'un' for unknown/default flag
     }
 }
 
@@ -23,8 +23,8 @@ export default {
 <template>
     <div class="movie-card-container">
         <div v-for="film in store.filmList" :key="film.id" class="movie-info">
-            <h3>{{ film.title }}</h3>
-            <p><strong>Titolo Originale:</strong> {{ film.original_title }}</p>
+            <h3>{{ film.title || film.name }}</h3>
+            <p><strong>Titolo Originale:</strong>{{ film.original_title || film.original_name }}</p>
             <p><strong>Lingua:</strong></p>
             <img
                 :src="`https://flagcdn.com/${getCountryCode(film.original_language)}.svg`"
