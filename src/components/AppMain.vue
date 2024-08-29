@@ -32,10 +32,16 @@ export default {
                 width="30"
                 :alt="film.original_language"
             />
-            <p><strong>Voto:</strong> {{ film.vote_average }}</p>
+            <p><strong>Voto:</strong>
+                <span v-for="star in 5" :key="star">
+                    <i v-if="star <= Math.ceil(film.vote_average / 2)" class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i v-else class="fa-regular fa-star" style="color: #FFD43B;"></i>
+                </span>
+            </p>
         </div>
     </div>
 </template>
+
 
 
 <style lang="scss">
